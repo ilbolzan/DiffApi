@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.EntityFrameworkCore;
 using WAESAssignment.Diff.Api.Models;
+using WAESAssignment.Diff.Api.Interfaces.Repository;
+using WAESAssignment.Diff.Api.Repository;
 
 namespace WAESAssignment.DiffApi
 {
@@ -30,12 +32,17 @@ namespace WAESAssignment.DiffApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddScoped<IDifferenceLeftRepository, DifferenceLeftRepository>();
+            services.AddScoped<IDifferenceRightRepository, DifferenceRightRepository>();
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "Diff API", Version = "V1" });
             });
 
-            services.AddDbContext<WAESAssignmentDiffApiContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("WAESAssignmentDiffApiContext")));
+            //services.AddDbContext<DiffDbContext>(options => options.UseInMemoryDatabase("DiffDatabase"));
+            services.AddDbContext<DiffDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DiffDb")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +60,7 @@ namespace WAESAssignment.DiffApi
 
             app.UseSwagger();
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "post API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Diff API V1");
             });
 
             app.UseHttpsRedirection();
