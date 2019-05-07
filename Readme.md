@@ -37,3 +37,14 @@ and run the scripts that create the database and tables.
 
 # Running Tests With Coverage
 > dotnet test /p:CollectCoverage=true /p:Exclude="[xunit*]*"
+
+# Sugestion of improvement
+- Implementation
+	- Implement PUT for updating sides
+	- Implement some kind of Authentication and Authorization either by implementing a token generation or by using an external API Manager and validating a JWT Token
+- Technical Debt
+	- Increase Test Coverage
+	- Remove Both Left and Right Repository since they don't make sense anymore
+	- Properly handle http responses
+	- Create Models and separate the Controler and Repositories
+	- Properly handle model validation
