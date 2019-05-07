@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAESAssignment.Diff.Api", "WAESAssignment.DiffApi\WAESAssignment.Diff.Api.csproj", "{1C5E2D05-DB7F-410A-87F8-4D78D21749EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAESAssignment.Diff.Api", "WAESAssignment.Diff.Api\WAESAssignment.Diff.Api.csproj", "{1C5E2D05-DB7F-410A-87F8-4D78D21749EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAESAssignment.Diff.Api.UnitTests", "WAESAssignment.Diff.Api.UnitTests\WAESAssignment.Diff.Api.UnitTests.csproj", "{CECB01F4-CC96-4635-B53F-32503183AB2B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAESAssignment.Diff.Api.IntegrationTests", "WAESAssignment.Diff.Api.IntegrationTests\WAESAssignment.Diff.Api.IntegrationTests.csproj", "{559A7236-69B3-43F9-8731-7B1E959D2E94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F8FCC3B-C507-4B6E-93D7-CD4F83CCB80D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{275EA03D-7D8B-4592-8547-992DB3808190}"
 	ProjectSection(SolutionItems) = preProject

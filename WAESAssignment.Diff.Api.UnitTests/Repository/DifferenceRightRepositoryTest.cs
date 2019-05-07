@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using WAESAssignment.Diff.Api.Entity;
-using WAESAssignment.Diff.Api.Models;
 using WAESAssignment.Diff.Api.Repository;
-using WAESAssignment.Diff.Api.UnitTests.Helpers;
 using Xunit;
 
 namespace WAESAssignment.Diff.Api.UnitTests.Repository
@@ -17,13 +15,13 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
         {
             //arrange
             _context.Database.EnsureCreated();
-            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            var differenceRightRepository = new DifferenceRightRepository(_context);
 
             //Act
-            var difference = new DifferenceLeft(1, null);
+            var difference = new DifferenceRight(1, null);
 
             //Assert
-            Exception ex = Assert.Throws<DbUpdateException>(() => differenceLeftRepository.Add(difference));
+            Exception ex = Assert.Throws<DbUpdateException>(() => differenceRightRepository.Add(difference));
         }
 
         [Fact]
@@ -31,12 +29,12 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
         {
             //arrange
             _context.Database.EnsureCreated();
-            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            var differenceRightRepository = new DifferenceRightRepository(_context);
             int id = 1;
 
             //Act
-            var differenceSaved = new DifferenceLeft(id, "a");
-            differenceLeftRepository.Add(differenceSaved);
+            var differenceSaved = new DifferenceRight(id, "a");
+            differenceRightRepository.Add(differenceSaved);
         }
 
         [Fact]
@@ -44,12 +42,12 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
         {
             //arrange
             _context.Database.EnsureCreated();
-            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            var differenceRightRepository = new DifferenceRightRepository(_context);
             int id = 1;
 
             //Act
-            var differenceSaved = new DifferenceLeft(id, new string('a', 8000));
-            differenceLeftRepository.Add(differenceSaved);
+            var differenceSaved = new DifferenceRight(id, new string('a', 8000));
+            differenceRightRepository.Add(differenceSaved);
         }
 
         [Fact]
@@ -57,34 +55,48 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
         {
             //arrange
             _context.Database.EnsureCreated();
-            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            var differenceRightRepository = new DifferenceRightRepository(_context);
             int id = 1;
 
             //Act
-            var difference = new DifferenceLeft(id, new string('a', 8001));
-            differenceLeftRepository.Add(difference);
+            var difference = new DifferenceRight(id, new string('a', 8001));
+            differenceRightRepository.Add(difference);
 
             //Assert
-            Exception ex = Assert.Throws<DbUpdateException>(() => differenceLeftRepository.Add(difference));
+            Exception ex = Assert.Throws<DbUpdateException>(() => differenceRightRepository.Add(difference));
         }
 
         [Fact]
-        public async void GetById_WhenProperlySaved_ShouldReturnSameValues()
+        public async void GetById_WhenProperlySaved_ShouldReturnEqualValues()
         {
             //arrange
             _context.Database.EnsureCreated();
-            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            var differenceRightRepository = new DifferenceRightRepository(_context);
             int id = 1;
 
             //Act
-            var differenceSaved = new DifferenceLeft(id, "a");
-            differenceLeftRepository.Add(differenceSaved);
+            var differenceSaved = new DifferenceRight(id, "a");
+            differenceRightRepository.Add(differenceSaved);
 
-            var differenceReturned = await differenceLeftRepository.GetById(id);
-
+            var differenceReturned = await differenceRightRepository.GetById(id);
 
             //Assert
             Assert.Equal<Difference>(differenceSaved, differenceReturned);
+        }
+
+        [Fact]
+        public async void GetById_WhenNonExistent_ShouldReturnNull()
+        {
+            //arrange
+            _context.Database.EnsureCreated();
+            var differenceRightRepository = new DifferenceRightRepository(_context);
+            int id = 1;
+
+            //Act
+            var differenceReturned = await differenceRightRepository.GetById(id);
+
+            //Assert
+            Assert.Null(differenceReturned);
         }
     }
 }

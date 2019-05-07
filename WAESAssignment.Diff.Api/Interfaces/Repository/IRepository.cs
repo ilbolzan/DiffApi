@@ -10,6 +10,5 @@ namespace WAESAssignment.Diff.Api.Interfaces.Repository
     {
         void Add(TModel difference);
         Task<TModel> GetById(int id);
-
     }
 }

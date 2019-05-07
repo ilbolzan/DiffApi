@@ -67,7 +67,7 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
         }
 
         [Fact]
-        public async void GetById_WhenProperlySaved_ShouldReturnSameValues()
+        public async void GetById_WhenProperlySaved_ShouldReturnEqualValues()
         {
             //arrange
             _context.Database.EnsureCreated();
@@ -83,6 +83,21 @@ namespace WAESAssignment.Diff.Api.UnitTests.Repository
 
             //Assert
             Assert.Equal<Difference>(differenceSaved, differenceReturned);
+        }
+
+        [Fact]
+        public async void GetById_WhenNonExistent_ShouldReturnNull()
+        {
+            //arrange
+            _context.Database.EnsureCreated();
+            var differenceLeftRepository = new DifferenceLeftRepository(_context);
+            int id = 1;
+
+            //Act
+            var differenceReturned = await differenceLeftRepository.GetById(id);
+
+            //Assert
+            Assert.Null(differenceReturned);
         }
     }
 }

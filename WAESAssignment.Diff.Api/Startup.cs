@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using WAESAssignment.Diff.Api.Models;
 using WAESAssignment.Diff.Api.Interfaces.Repository;
 using WAESAssignment.Diff.Api.Repository;
+using WAESAssignment.Diff.Api.Interfaces.Service;
+using WAESAssignment.Diff.Api.Service;
 
 namespace WAESAssignment.DiffApi
 {
@@ -34,6 +36,7 @@ namespace WAESAssignment.DiffApi
 
             services.AddScoped<IDifferenceLeftRepository, DifferenceLeftRepository>();
             services.AddScoped<IDifferenceRightRepository, DifferenceRightRepository>();
+            services.AddScoped<IDifferenceService, DifferenceService>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "Diff API", Version = "V1" });
