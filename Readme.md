@@ -34,3 +34,6 @@ and run the scripts that create the database and tables.
 
 # Runing Tests
 > dotnet test
+
+# Running Tests With Coverage
+> dotnet test /p:CollectCoverage=true /p:Exclude="[xunit*]*"
