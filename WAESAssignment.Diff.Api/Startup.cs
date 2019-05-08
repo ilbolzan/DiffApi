@@ -36,6 +36,7 @@ namespace WAESAssignment.DiffApi
 
             services.AddScoped<IDifferenceLeftRepository, DifferenceLeftRepository>();
             services.AddScoped<IDifferenceRightRepository, DifferenceRightRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IDifferenceService, DifferenceService>();
 
             services.AddSwaggerGen(c => {

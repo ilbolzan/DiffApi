@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WAESAssignment.Diff.Api.Interfaces.Repository;
-using WAESAssignment.Diff.Api.Entity;
-using WAESAssignment.Diff.Api.Models;
 using WAESAssignment.Diff.Api.DTO;
-using WAESAssignment.Diff.Api.Service;
+using WAESAssignment.Diff.Api.Entity;
+using WAESAssignment.Diff.Api.Interfaces.Repository;
 using WAESAssignment.Diff.Api.Interfaces.Service;
+using WAESAssignment.Diff.Api.Service;
 
 namespace WAESAssignment.Diff.Api.Controllers
 {
@@ -90,14 +85,21 @@ namespace WAESAssignment.Diff.Api.Controllers
         [HttpGet("{id}/right")]
         public async Task<ActionResult<DifferenceRight>> GetDifferenceRight(int id)
         {
-            var difference = await _differenceRightRepository.GetById(id);
-
-            if (difference == null)
+            try
             {
-                return NotFound();
-            }
+                var difference = await _differenceRightRepository.GetById(id);
 
-            return difference;
+                if (difference == null)
+                {
+                    return NotFound();
+                }
+
+                return difference;
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         /// <summary>
@@ -107,13 +109,18 @@ namespace WAESAssignment.Diff.Api.Controllers
         /// <param name="base64Left"></param>
         /// <returns></returns>
         [HttpPost("{id}/left")]
-        public ActionResult<Difference> PostLeft(int id, string base64Left)
+        public ActionResult<Difference> PostLeft(DifferenceLeft differenceLeft)
         {
-            var differenceLeft = new DifferenceLeft(id, base64Left);
+            try
+            {
+                _differenceLeftRepository.Add(differenceLeft);
 
-            _differenceLeftRepository.Add(differenceLeft);
-
-            return CreatedAtAction("GetDifferenceLeft", new { id = differenceLeft.Id }, differenceLeft);
+                return CreatedAtAction("GetDifferenceLeft", new { id = differenceLeft.Id }, differenceLeft);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         /// <summary>
@@ -124,9 +131,16 @@ namespace WAESAssignment.Diff.Api.Controllers
         [HttpPost("{id}/right")]
         public ActionResult<Difference> PostRight(DifferenceRight differenceRight)
         {
-            _differenceRightRepository.Add(differenceRight);
+            try
+            {
+                _differenceRightRepository.Add(differenceRight);
 
-            return CreatedAtAction("GetDifference", new { id = differenceRight.Id }, differenceRight);
+                return CreatedAtAction("GetDifference", new { id = differenceRight.Id }, differenceRight);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
     }
 }

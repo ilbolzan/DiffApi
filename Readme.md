@@ -48,3 +48,4 @@ and run the scripts that create the database and tables.
 	- Properly handle http responses
 	- Create Models and separate the Controler and Repositories
 	- Properly handle model validation
+    - Refactor the Comparisson, specialy the insights part wich was poorly implemented
